@@ -79,8 +79,11 @@ public class MouseHandleMaster implements KeyListener, MouseListener, MouseWheel
 
     @Override
     public void keyPressed(KeyEvent e) {
-
-        key = e.getKeyChar();
+        if (e.getKeyChar() == 'p'){
+            Particle.flush();
+        }else{
+            key = e.getKeyChar();
+        }
     }
 
     @Override
@@ -119,7 +122,10 @@ public class MouseHandleMaster implements KeyListener, MouseListener, MouseWheel
         if (x > 0) mouse_size ++;
         if (x < 0) mouse_size --;
     }
+
+    int lastX = 100, lastY = 100;
     class PenTool implements Runnable{
+
 
         int x,y;
         PenTool(){
@@ -134,13 +140,13 @@ public class MouseHandleMaster implements KeyListener, MouseListener, MouseWheel
                 x = (int) Engine.f.getMousePosition().getX() - mX;
             } catch (Exception e)
             {
-                x = this.x;
+                x = lastX;
             }
             try{
                 y = (int) Engine.f.getMousePosition().getY() - mY;
             } catch (Exception e)
             {
-                y = this.y;
+                y = lastY;
             }
 
 
@@ -165,6 +171,8 @@ public class MouseHandleMaster implements KeyListener, MouseListener, MouseWheel
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            lastX = x;
+            lastY = y;
 
         }
     }

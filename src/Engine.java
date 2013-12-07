@@ -10,8 +10,8 @@ import java.awt.image.ImageObserver;
 
 
 class Engine implements Runnable{
-    static final int HEIGHT = 400;
-    static final int WIDTH = 400;
+    static final int HEIGHT = 600;
+    static final int WIDTH = 600;
     public static JFalling f;
     public static BufferedImage img;
 
@@ -73,6 +73,7 @@ class Engine implements Runnable{
         f.setTitle("Falling Sand --by-- Kyle Rosenthal");
 
         f.setSize(WIDTH, HEIGHT);
+        f.setBackground(Color.BLACK);
 
 
         BufferedImage icoB = new BufferedImage(32,32,BufferedImage.TYPE_INT_RGB);
@@ -87,7 +88,7 @@ class Engine implements Runnable{
         f.setxIyI(insets.left,insets.top);
         f.setSize(WIDTH + insets.left + insets.right,HEIGHT + insets.top + insets.bottom);
         f.setBackground(Color.BLACK);
-        f.setResizable(false);
+        f.setResizable(true);
         f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
 
         MouseHandleMaster mlm = new MouseHandleMaster(insets.left,insets.top);
@@ -95,6 +96,8 @@ class Engine implements Runnable{
         f.addMouseListener(mlm);
         f.addKeyListener(mlm);
         f.addMouseWheelListener(mlm);
+        f.setLocation(400,200);
+        f.setAutoRequestFocus(true);
 
 
         while (true)
