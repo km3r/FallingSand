@@ -8,8 +8,6 @@ import java.awt.image.ImageObserver;
  * 12/4/13
  */
 
-//TODO: Fix error
-//TODO: Erasing by point
 
 class Engine implements Runnable{
     static final int HEIGHT = 400;
