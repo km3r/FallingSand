@@ -13,20 +13,30 @@ public class Water extends FallingParticle{
     int shift;
     public void update()
     {
-        shift = (int) (Math.random()*8 - 4);
+        shift = (int) (Math.random()*4);
 
-        for (int i = (int)Math.random()*10; i > 0;i--)
+        if (Math.random() < .5)
         {
-            if (!collisionCheck(getX() + shift,getY())) addX(shift);
-            else break;
+            for (int i = 0; i < shift;i++)
+            {
+                if (!collisionCheck(getX() + 1,getY())) addX(1);
+                else break;
+            }
+        }else
+        {
+            for (int i = 0; i < shift;i++)
+            {
+                if (!collisionCheck(getX() - 1,getY())) addX(-1);
+                else break;
+            }
         }
 
-        /* /TODO SINKING IN WATER
-        if (inLoc[getX()][getY()-1] != null && (inLoc[getX()][getY()-1] instanceof FallingParticle))
+        //TODO SINKING IN WATER
+
+        if (getY() > 0 && inLoc[getX()][getY()-1] != null && (inLoc[getX()][getY()-1] instanceof FallingParticle) && !(inLoc[getX()][getY()-1] instanceof Water))
         {
             swap(inLoc[getX()][getY()-1]);
         }
-        */
 
         super.update();
     }

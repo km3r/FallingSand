@@ -66,9 +66,31 @@ public class MouseHandleMaster implements KeyListener, MouseListener, MouseWheel
     {
         if (mouseDown)
         {
-            Runnable r = new PenTool();
-            Thread t = new Thread(r);
-            t.start();
+            int x;
+            int y;
+            try{
+                x = (int) Engine.f.getMousePosition().getX() - mX;
+            } catch (Exception e)
+            {
+                x = lastX;
+            }
+            try{
+                y = (int) Engine.f.getMousePosition().getY() - mY;
+            } catch (Exception e)
+            {
+                y = lastY;
+            }
+
+            for (int i = - mouse_size; i <= mouse_size;i++ )
+            {
+                for (int j = -mouse_size; j <= mouse_size;j++ )
+                {
+                    if ((i*i) + (j*j) < (mouse_size*mouse_size)) spawnByLoc(x+i,y+j);
+                }
+            }
+            //Runnable r = new PenTool();
+            //Thread t = new Thread(r);
+            //t.start();
         }
     }
 
@@ -121,9 +143,12 @@ public class MouseHandleMaster implements KeyListener, MouseListener, MouseWheel
         int x = -e.getWheelRotation();
         if (x > 0) mouse_size ++;
         if (x < 0) mouse_size --;
+        if (mouse_size < 1) mouse_size = 1;
+        if (mouse_size > 40) mouse_size = 40;
     }
 
     int lastX = 100, lastY = 100;
+
     class PenTool implements Runnable{
 
 
@@ -149,8 +174,14 @@ public class MouseHandleMaster implements KeyListener, MouseListener, MouseWheel
                 y = lastY;
             }
 
-
-            for (int i = 1; i < mouse_size; i++) {
+            for (int i = - mouse_size; i <= mouse_size;i++ )
+            {
+                for (int j = -mouse_size; j <= mouse_size;j++ )
+                {
+                    if ((i*i) + (j*j) < (mouse_size*mouse_size)) spawnByLoc(x+i,y+j);
+                }
+            }
+            /**for (int i = 1; i < mouse_size; i++) {
                 for (int t = -(mouse_size-i); t <  mouse_size-i; t++){
                     dx = t;
                     dy = i;
@@ -166,13 +197,9 @@ public class MouseHandleMaster implements KeyListener, MouseListener, MouseWheel
                 }
 
             }
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             lastX = x;
             lastY = y;
+             **/
 
         }
     }

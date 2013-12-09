@@ -33,6 +33,7 @@ public class Particle {
     public void update()
     {
 
+
         notUpdated = false;
         if (changed)
         {
@@ -46,8 +47,7 @@ public class Particle {
     }
 
     public static boolean collisionCheck(int xCh,int yCh) {
-        if (xCh < 0 || xCh >= Engine.img.getWidth() || yCh < 0 || yCh >= Engine.img.getHeight()) return true;
-        return (inLoc[xCh][yCh] != null);
+        return (xCh < 0 || xCh >= Engine.img.getWidth() || yCh < 0 || yCh >= Engine.img.getHeight() || (inLoc[xCh][yCh] != null));
     }
     public int getX() {
         return x;
@@ -91,11 +91,25 @@ public class Particle {
             inLoc[this.x][this.y] = this;
         }
     }
+    public void setXY(int x, int y)
+    {
+        if (y < 0) y = 0;
+        if (y >= Engine.img.getHeight() -1) y = Engine.img.getHeight() - 1;
+        if (x < 0) x = 0;
+        if (x >= Engine.img.getWidth() -1) x = Engine.img.getWidth() - 1;
+        if (inLoc[x][y] == null){
+            changed = true;
+            inLoc[this.x][this.y] = null;
+            this.x = x;
+            this.y = y;
+            inLoc[this.x][this.y] = this;
+        }
+    }
 
     public synchronized static void updateAll()
     {
         temp = Engine.img;
-        for (int i = 0; i < inLoc.length; i++)
+        for (int i = inLoc.length - 1; i >= 0 ; i--)
         {
             for (int j = 0; j < inLoc[i].length; j++)
             {
@@ -127,15 +141,14 @@ public class Particle {
 
     public void swap(Particle p)
     {
-        Particle tempP = p;
-        inLoc[p.x][p.y] = this;
-        p.x = x;
-        p.y = y;
-        inLoc[x][y] = tempP;
-        x = tempP.x;
-        y = tempP.y;
-        temp.setRGB(p.x,p.y,p.getColor());
-        temp.setRGB(x,y,getColor());
+        setXY(0,0);
+        update();
+        int tempX = p.x;
+        int tempY = p.y;
+        p.setXY(x,y);
+        p.update();
+        setXY(tempX,tempY);
+        update();
 
     }
     public static void flush() {
@@ -147,5 +160,13 @@ public class Particle {
                 temp.setRGB(i,j,BACK_COLOR);
             }
         }
+    }
+    public Particle getParticle(int x, int y)
+    {
+        if (y < 0) y = 0;
+        if (y >= Engine.img.getHeight() -1) y = Engine.img.getHeight() - 1;
+        if (x < 0) x = 0;
+        if (x >= Engine.img.getWidth() -1) x = Engine.img.getWidth() - 1;
+        return inLoc[x][y];
     }
 }

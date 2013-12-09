@@ -24,6 +24,7 @@ class Engine implements Runnable{
         JFalling(BufferedImage bImg)
         {
             img = bImg;
+
         }
         public void setImg(BufferedImage bImg)
         {
@@ -106,7 +107,7 @@ class Engine implements Runnable{
             mlm.check();
 
             Particle.updateAll();
-            sync(180);
+            sync(300);
             f.repaint();
         }
     }
