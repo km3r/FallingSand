@@ -1,5 +1,4 @@
 
-
 /**
  * Kyle Rosenthal
  * 12/5/13
@@ -15,7 +14,7 @@ public class Fire extends GasParticle {
     {
         time++;
         if (time > LIFE_TIME) dead = true;
-        addY((int)(-1*Math.random() * time / 20));
+        addY((int)(-1 * time / 20));
         if (getY() < Engine.img.getHeight() && Math.random() < .2)
         {
             if(!collisionCheck(getX(),getY() - 1 ) )
@@ -23,7 +22,7 @@ public class Fire extends GasParticle {
                 addY(-1);
             } else if (!collisionCheck(getX() + 1,getY()) && !collisionCheck(getX() - 1,getY()) )
             {
-                if (Math.random() < .5){
+                if (r.nextBoolean()){
                     if (!collisionCheck(getX() + 1,getY() - 1) ){
                         setX(getX() + 1);
                         setY(getY() - 1);
