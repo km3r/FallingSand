@@ -12,11 +12,11 @@ public class GasParticle extends Particle{
     public void update()
     {
         if (r.next(3) < 2 {
-            move = (int)(Math.random()*10 - 5);
+            move = (int)(r.nextInt(10) - 5);
             if (!collisionCheck(getX() + move,getY())) addX(move);
         }
         if (r.next(3) < 2) {
-            move = (int)(Math.random()*10 - 5);
+            move = (int)(r.nextInt(10) - 5);
             if (!collisionCheck(getX(),getY() + move)) addY(move);
         }
 
