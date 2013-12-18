@@ -1,4 +1,3 @@
-
 /**
  * Kyle Rosenthal
  * 12/5/13
@@ -12,11 +11,11 @@ public class GasParticle extends Particle{
     int move;
     public void update()
     {
-        if (Math.random() < .2) {
+        if (r.next(3) < 2 {
             move = (int)(Math.random()*10 - 5);
             if (!collisionCheck(getX() + move,getY())) addX(move);
         }
-        if (Math.random() < .2) {
+        if (r.next(3) < 2) {
             move = (int)(Math.random()*10 - 5);
             if (!collisionCheck(getX(),getY() + move)) addY(move);
         }
