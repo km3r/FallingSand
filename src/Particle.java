@@ -1,5 +1,4 @@
 
-
 import java.awt.image.BufferedImage;
 
 /**
@@ -15,6 +14,7 @@ public class Particle {
     boolean notUpdated = true;
     int color;
     static BufferedImage temp = Engine.img;
+    Random r;
 
     public Particle(int x, int y, int red, int green, int blue) {
 
@@ -24,6 +24,7 @@ public class Particle {
         this.y = y;
         oldX = x;
         oldY = y;
+        r = new Random();
         inLoc[this.x][this.y] = this;
         color = (red << 16) | (green << 8) | blue;
 
