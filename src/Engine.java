@@ -81,7 +81,7 @@ class Engine implements Runnable{
 
         for (int j = 0; j < icoB.getWidth()/2 - 2;j++)
             for (int i = (icoB.getWidth()/2) - j; i < icoB.getWidth()/2 + j;i++)
-                    icoB.setRGB(i,j+ 8,Color.YELLOW.getRGB());
+                icoB.setRGB(i,j+ 8,Color.YELLOW.getRGB());
 
         f.setVisible(true);
         f.setIconImage(icoB);

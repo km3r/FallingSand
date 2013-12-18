@@ -11,11 +11,11 @@ public class GasParticle extends Particle{
     int move;
     public void update()
     {
-        if (r.next(3) < 2 {
+        if (r.nextInt(8) < 2) {
             move = (int)(r.nextInt(10) - 5);
             if (!collisionCheck(getX() + move,getY())) addX(move);
         }
-        if (r.next(3) < 2) {
+        if (r.nextInt(8) < 2) {
             move = (int)(r.nextInt(10) - 5);
             if (!collisionCheck(getX(),getY() + move)) addY(move);
         }

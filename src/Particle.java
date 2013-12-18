@@ -1,5 +1,6 @@
 
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 /**
  * Kyle Rosenthal
@@ -7,7 +8,9 @@ import java.awt.image.BufferedImage;
  */
 public class Particle {
     static final int BACK_COLOR = (12 << 16) | (12 << 8) | 12;
-    public static Particle inLoc[][] = new Particle[Engine.img.getWidth()][Engine.img.getHeight()];
+    static final int WID = Engine.img.getWidth();
+    static final int HIG = Engine.img.getHeight();
+    public static Particle inLoc[][] = new Particle[WID][HIG];
     private int x,y, oldX,oldY;
     public boolean dead = false;
     boolean changed = false;
@@ -48,7 +51,7 @@ public class Particle {
     }
 
     public static boolean collisionCheck(int xCh,int yCh) {
-        return (xCh < 0 || xCh >= Engine.img.getWidth() || yCh < 0 || yCh >= Engine.img.getHeight() || (inLoc[xCh][yCh] != null));
+        return (xCh < 0 || xCh >= WID || yCh < 0 || yCh >= HIG || (inLoc[xCh][yCh] != null));
     }
     public int getX() {
         return x;
@@ -61,12 +64,12 @@ public class Particle {
     public void setX(int x)
     {
         if (x < 0) x = 0;
-        if (x >= Engine.img.getWidth() -1) x = Engine.img.getWidth() - 1;
+        if (x >= WID -1) x = WID - 1;
         if (inLoc[x][this.y] == null){
             changed = true;
             inLoc[this.x][this.y] = null;
             if (x < 0) x = 0;
-            if (x >= Engine.img.getWidth() -1) x = Engine.img.getWidth() - 1;
+            if (x >= WID -1) x = WID - 1;
             this.x = x;
             inLoc[this.x][this.y] = this;
         }
@@ -82,12 +85,12 @@ public class Particle {
     }
     public void setY(int y) {
         if (y < 0) y = 0;
-        if (y >= Engine.img.getHeight() -1) y = Engine.img.getHeight() - 1;
+        if (y >= HIG -1) y = HIG - 1;
         if (inLoc[this.x][y] == null){
             changed = true;
             inLoc[this.x][this.y] = null;
             if (y < 0) y = 0;
-            if (y >= Engine.img.getHeight() -1) y = Engine.img.getHeight() - 1;
+            if (y >= HIG -1) y = HIG - 1;
             this.y = y;
             inLoc[this.x][this.y] = this;
         }
@@ -95,9 +98,9 @@ public class Particle {
     public void setXY(int x, int y)
     {
         if (y < 0) y = 0;
-        if (y >= Engine.img.getHeight() -1) y = Engine.img.getHeight() - 1;
+        if (y >= HIG -1) y = HIG - 1;
         if (x < 0) x = 0;
-        if (x >= Engine.img.getWidth() -1) x = Engine.img.getWidth() - 1;
+        if (x >= WID -1) x = WID - 1;
         if (inLoc[x][y] == null){
             changed = true;
             inLoc[this.x][this.y] = null;
@@ -140,12 +143,13 @@ public class Particle {
         this.color = color;
     }
 
+    int tempX, tempY;
     public void swap(Particle p)
     {
         setXY(0,0);
         update();
-        int tempX = p.x;
-        int tempY = p.y;
+        tempX = p.x;
+        tempY = p.y;
         p.setXY(x,y);
         p.update();
         setXY(tempX,tempY);
@@ -165,9 +169,9 @@ public class Particle {
     public Particle getParticle(int x, int y)
     {
         if (y < 0) y = 0;
-        if (y >= Engine.img.getHeight() -1) y = Engine.img.getHeight() - 1;
+        if (y >= HIG -1) y = HIG - 1;
         if (x < 0) x = 0;
-        if (x >= Engine.img.getWidth() -1) x = Engine.img.getWidth() - 1;
+        if (x >= WID -1) x = WID - 1;
         return inLoc[x][y];
     }
 }
